@@ -3,6 +3,7 @@ import swaggerUi from 'swagger-ui-express'
 
 const app = express()
 app.use(json())
+const port = 3000
 
 //generated with codium ai
 const TODOSTESTDATA = [
@@ -43,4 +44,14 @@ app.get('/tasks', (req, res) => {
 		return
 	}
 	res.status(200).json(tasks)
+})
+
+app.use(
+	'/',
+	swaggerUi.serve,
+	swaggerUi.setup('./swagger-output.json')
+)
+
+app.listen(port, () => {
+	console.log(`Listening on port ${port}`)
 })
