@@ -32,3 +32,15 @@ const TODOSTESTDATA = [
 		'completedDate': null
 	}
 ]
+
+app.get('/tasks', (req, res) => {
+	// #swagger.tags = ['Tasks']
+	// #swagger.summary = 'Get all tasks'
+	// #swagger.description = 'Get all tasks from the fictional database, if there are no tasks found you'll get an empty array'
+	const tasks = TODOSTESTDATA
+	if (!tasks) {
+		res.status(404).json(tasks)
+		return
+	}
+	res.status(200).json(tasks)
+})
