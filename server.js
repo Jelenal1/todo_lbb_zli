@@ -50,10 +50,10 @@ const TODOSTESTDATA = [
 ]
 
 const loginInfos = [{
-    username: 'admin@zli.ch',
+    email: 'admin@zli.ch',
     password: 'm295'
 }, {
-    username: 'moo@gmail.com',
+    email: 'moo@gmail.com',
     password: 'm295'
 }]
 
@@ -62,7 +62,7 @@ app.get('/tasks', (req, res) => {
     // #swagger.summary = 'Get all tasks'
     // #swagger.description = 'Get all tasks from the fictional database, if found'
 
-    if (!req.session.username) {
+    if (!req.session.email) {
         res.status(404).json({ message: 'Not logged in' })
         return
     }
@@ -96,7 +96,7 @@ app.post('/tasks', (req, res) => {
             format: 'String'
     } */
 
-    if (!req.session.username) {
+    if (!req.session.email) {
         res.status(404).json({ message: 'Not logged in' })
         return
     }
@@ -121,7 +121,7 @@ app.get('/tasks/:id', (req, res) => {
     // #swagger.summary = 'Get a task by id'
     // #swagger.description = 'Get a task by id, if found'
 
-    if (!req.session.username) {
+    if (!req.session.email) {
         res.status(404).json({ message: 'Not logged in' })
         return
     }
@@ -141,7 +141,7 @@ app.put('/tasks/:id', (req, res) => {
     // #swagger.description = 'Update a task by id, if found'
     // #swagger.responses['404'] = { description: 'Task not found'}
 
-    if (!req.session.username) {
+    if (!req.session.email) {
         res.status(404).json({ message: 'Not logged in' })
         return
     }
@@ -166,7 +166,7 @@ app.delete('/tasks/:id', (req, res) => {
     // #swagger.description = 'Delete a task by id, if found'
     // #swagger.responses['404'] = { description: 'Task not found'}
 
-    if (!req.session.username) {
+    if (!req.session.email) {
         res.status(404).json({ message: 'Not logged in' })
         return
     }
@@ -181,34 +181,36 @@ app.delete('/tasks/:id', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
-    const { username, password } = req.body
+    const { email, password } = req.body
 
-    if (req.session.username) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (req.session.email) {
         res.status(401).json({ message: 'Already logged in' })
         return
     }
-    const user = loginInfos.find(user => user.username === username && user.password === password)
+    const user = loginInfos.find(user => user.email === email && user.password === password)
     if (!user) {
-        res.status(401).json({ message: 'Invalid username or password' })
-        req.session.username = ''
+        res.status(401).json({ message: 'Invalid email or password' })
+        req.session.email = ''
         return
     }
-    res.status(200).json(user.username)
-    req.session.username = username
+    res.status(200).json(user.email)
+    req.session.email = email
 })
 
 app.get('/verify', (req, res) => {
-    const username = req.session.username
-    if (!username) {
+    const email = req.session.email
+    if (!email) {
         res.status(401).json({ message: 'Not logged in' })
         return
     }
-    const user = loginInfos.find(user => user.username === username)
+    const user = loginInfos.find(user => user.email === email)
     if (!user) {
         res.status(401).json({ message: 'Invalid token' })
         return
     }
-    res.status(200).json(req.session.username)
+    res.status(200).json(req.session.email)
 })
 
 app.use(
