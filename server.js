@@ -189,6 +189,12 @@ app.post('/login', (req, res) => {
         res.status(401).json({ message: 'Already logged in' })
         return
     }
+
+    if (!emailRegex.test(email)) {
+        res.status(401).json({ message: 'Invalid email' })
+        return
+    }
+
     const user = loginInfos.find(user => user.email === email && user.password === password)
     if (!user) {
         res.status(401).json({ message: 'Invalid email or password' })
