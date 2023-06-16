@@ -128,7 +128,7 @@ app.get('/tasks/:id', (req, res) => {
     }
 
     const taskId = req.params.id
-    const taskById = TODOSTESTDATA.find(task => task.id === taskId)
+    const taskById = TODOSTESTDATA.find(task => task.id === parseInt(taskId))
     if (!taskById) {
         res.status(404).json(taskById)
         return
