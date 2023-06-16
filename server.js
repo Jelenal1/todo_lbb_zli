@@ -151,13 +151,13 @@ app.put('/tasks/:id', (req, res) => {
         return
     }
 
-    if (!req.body.title) {
-        res.status(406).json({ message: 'Title is required' })
-        return
-    }
+
     const taskId = req.params.id
     const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId && task.email === req.session.email)
-    const taskToUpdate = req.body
+    const taskToUpdate = {
+        ...TODOSTESTDATA[taskIndex],
+        ...req.body
+    }
     if (taskIndex === -1) {
         res.status(404).json({ message: 'Task not found' })
         return
