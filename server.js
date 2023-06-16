@@ -127,14 +127,14 @@ app.get('/tasks/:id', (req, res) => {
     // #swagger.description = 'Get a task by id, if found and logged in'
 
     if (!req.session.email) {
-        res.status(404).json({ message: 'Not logged in' })
+        res.status(403).json({ message: 'Not logged in' })
         return
     }
 
     const taskId = req.params.id
     const taskById = TODOSTESTDATA.find(task => task.id === parseInt(taskId) && task.email === req.session.email)
     if (!taskById) {
-        res.status(404).json(taskById)
+        res.status(404).json({ message: 'Task not found' })
         return
     }
     res.status(200).json(taskById)
