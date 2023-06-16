@@ -97,12 +97,6 @@ app.post('/tasks', (req, res) => {
             completedDate: 'String or null'
         }
 } */
-    /* #swagger.parameters['titel'] = {
-            description: 'Titel of the task',
-            required: true,
-            type: 'String',
-            format: 'String'
-    } */
 
     if (!req.session.email) {
         res.status(403).json({ message: 'Not logged in' })
