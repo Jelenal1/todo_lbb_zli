@@ -186,6 +186,10 @@ app.delete('/tasks/:id', (req, res) => {
 })
 
 app.post('/login', (req, res) => {
+    // #swagger.tags = ['Authentication']
+    // #swagger.summary = 'Login a user by email and password'
+    // #swagger.description = 'Login a user by email and password and get an session cookie'
+
     const { email, password } = req.body
 
     // generated with codium ai
@@ -212,6 +216,10 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/verify', (req, res) => {
+    // #swagger.tags = ['Authentication']
+    // #swagger.summary = 'Verify a user'
+    // #swagger.description = 'Verify a user by their session cookie'
+
     const email = req.session.email
     if (!email) {
         res.status(401).json({ message: 'Not logged in' })
@@ -226,6 +234,9 @@ app.get('/verify', (req, res) => {
 })
 
 app.delete('/logout', (req, res) => {
+    // #swagger.tags = ['Authentication']
+    // #swagger.summary = 'Logout a user'
+    // #swagger.description = 'Logout a user and delete the session cookie'
     req.session.email = ''
     res.sendStatus(204)
 })
