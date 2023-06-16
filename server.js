@@ -157,7 +157,7 @@ app.put('/tasks/:id', (req, res) => {
     }
 
     const taskId = req.params.id
-    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId && task.email === req.session.email)
+    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === parseInt(taskId) && task.email === req.session.email)
     const taskToUpdate = {
         ...TODOSTESTDATA[taskIndex],
         ...req.body
@@ -182,7 +182,7 @@ app.delete('/tasks/:id', (req, res) => {
     }
 
     const taskId = req.params.id
-    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId && task.email === req.session.email)
+    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === parseInt(taskId) && task.email === req.session.email)
     if (taskIndex === -1) {
         res.status(404).json({ message: 'Task not found' })
         return
