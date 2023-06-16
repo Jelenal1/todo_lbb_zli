@@ -34,7 +34,7 @@ const TODOSTESTDATA = [
         'email': 'admin@zli.ch'
     },
     {
-        'id': 3,
+        'id': 2,
         'title': 'Finish project',
         'createdDate': '02.01.22',
         'completedDate': null,
@@ -42,14 +42,14 @@ const TODOSTESTDATA = [
 
     },
     {
-        'id': 4,
+        'id': 1,
         'title': 'Call mom',
         'createdDate': '03.01.22',
         'completedDate': '03.01.22',
         'email': 'moo@gmail.com'
     },
     {
-        'id': 5,
+        'id': 2,
         'title': 'Go for a run',
         'createdDate': '04.01.22',
         'completedDate': null,
@@ -75,7 +75,7 @@ app.get('/tasks', (req, res) => {
         return
     }
 
-    const tasks = TODOSTESTDATA
+    const tasks = TODOSTESTDATA.filter(task => task.email === req.session.email)
     if (!tasks) {
         res.status(404).json(tasks)
         return
@@ -114,7 +114,8 @@ app.post('/tasks', (req, res) => {
         'id': TODOSTESTDATA.length + 1,
         'title': req.body.title,
         'createdDate': req.body.createdDate ? req.body.createdDate : createDate.toLocaleDateString(),
-        'completedDate': req.body.completedDate ? req.body.completedDate : null
+        'completedDate': req.body.completedDate ? req.body.completedDate : null,
+        'email': req.session.email
     }
     if (!task || !task.title) {
         res.status(404).json(task)
@@ -135,7 +136,7 @@ app.get('/tasks/:id', (req, res) => {
     }
 
     const taskId = req.params.id
-    const taskById = TODOSTESTDATA.find(task => task.id === parseInt(taskId))
+    const taskById = TODOSTESTDATA.find(task => task.id === parseInt(taskId) && task.email === req.session.email)
     if (!taskById) {
         res.status(404).json(taskById)
         return
