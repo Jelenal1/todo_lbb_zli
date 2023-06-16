@@ -203,8 +203,8 @@ app.post('/login', (req, res) => {
         req.session.email = ''
         return
     }
-    res.status(200).json(user.email)
     req.session.email = email
+    res.status(200).json({ email: user.email })
 })
 
 app.get('/verify', (req, res) => {
