@@ -75,12 +75,12 @@ app.get('/tasks', (req, res) => {
         return
     }
 
-    const tasks = TODOSTESTDATA.filter(task => task.email === req.session.email)
-    if (!tasks) {
+    const userTasks = TODOSTESTDATA.filter(task => task.email === req.session.email)
+    if (!userTasks) {
         res.status(500).json({ message: 'Internal server error' })
         return
     }
-    res.status(200).json(tasks)
+    res.status(200).json(userTasks)
 })
 
 app.post('/tasks', (req, res) => {
@@ -109,9 +109,10 @@ app.post('/tasks', (req, res) => {
         return
     }
 
+    const taskId = TODOSTESTDATA.filter(task => task.email === req.session.email).length + 1
     const createDate = new Date()
     const task = {
-        'id': TODOSTESTDATA.length + 1,
+        'id': taskId,
         'title': req.body.title,
         'createdDate': req.body.createdDate ? req.body.createdDate : createDate.toLocaleDateString(),
         'completedDate': req.body.completedDate ? req.body.completedDate : null,
@@ -181,7 +182,7 @@ app.delete('/tasks/:id', (req, res) => {
     }
 
     const taskId = req.params.id
-    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId)
+    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId && task.email === req.session.email)
     if (taskIndex === -1) {
         res.status(404).json({ message: 'Task not found' })
         return
