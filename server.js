@@ -120,6 +120,20 @@ app.put('/tasks/:id', (req, res) => {
     res.status(200).json(TODOSTESTDATA[taskIndex])
 })
 
+app.delete('/tasks/:id', (req, res) => {
+    // #swagger.tags = ['Tasks']
+    // #swagger.summary = 'Delete a task by id'
+    // #swagger.description = 'Delete a task by id, if found'
+    // #swagger.responses['404'] = { description: 'Task not found'}
+
+    const taskId = req.params.id
+    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId)
+    if (taskIndex === -1) {
+        res.status(404).json({ message: 'Task not found' })
+        return
+    }
+    TODOSTESTDATA.splice(taskIndex, 1)
+})
 
 app.use(
     '/',
