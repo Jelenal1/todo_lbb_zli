@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon server.js",
-    "lint": "yarn run eslint .",
+    "lint": "yarn run eslint ./server.js",
     "lintfix": "yarn run eslint ./server.js --fix",
     "swagger": "node swagger.js"
   },
