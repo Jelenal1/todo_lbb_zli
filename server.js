@@ -71,13 +71,13 @@ app.get('/tasks', (req, res) => {
     // #swagger.description = 'Get all tasks from the fictional database, if found'
 
     if (!req.session.email) {
-        res.status(404).json({ message: 'Not logged in' })
+        res.status(403).json({ message: 'Not logged in' })
         return
     }
 
     const tasks = TODOSTESTDATA.filter(task => task.email === req.session.email)
     if (!tasks) {
-        res.status(404).json(tasks)
+        res.status(500).json({ message: 'Internal server error' })
         return
     }
     res.status(200).json(tasks)
@@ -105,7 +105,7 @@ app.post('/tasks', (req, res) => {
     } */
 
     if (!req.session.email) {
-        res.status(404).json({ message: 'Not logged in' })
+        res.status(403).json({ message: 'Not logged in' })
         return
     }
 
@@ -151,7 +151,7 @@ app.put('/tasks/:id', (req, res) => {
     // #swagger.responses['404'] = { description: 'Task not found'}
 
     if (!req.session.email) {
-        res.status(404).json({ message: 'Not logged in' })
+        res.status(403).json({ message: 'Not logged in' })
         return
     }
 
@@ -176,7 +176,7 @@ app.delete('/tasks/:id', (req, res) => {
     // #swagger.responses['404'] = { description: 'Task not found'}
 
     if (!req.session.email) {
-        res.status(404).json({ message: 'Not logged in' })
+        res.status(403).json({ message: 'Not logged in' })
         return
     }
 
