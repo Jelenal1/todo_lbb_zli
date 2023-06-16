@@ -89,6 +89,12 @@ app.post('/tasks', (req, res) => {
             type: 'String',
             format: 'String'
     } */
+
+    if (!req.session.username) {
+        res.status(401).json({ message: 'Not logged in' })
+        return
+    }
+
     const createDate = new Date()
     const task = {
         'id': TODOSTESTDATA.length + 1,
@@ -108,6 +114,12 @@ app.get('/tasks/:id', (req, res) => {
     // #swagger.tags = ['Tasks']
     // #swagger.summary = 'Get a task by id'
     // #swagger.description = 'Get a task by id, if found'
+
+    if (!req.session.username) {
+        res.status(401).json({ message: 'Not logged in' })
+        return
+    }
+
     const taskId = req.params.id
     const taskById = TODOSTESTDATA.find(task => task.id === taskId)
     if (!taskById) {
@@ -122,6 +134,11 @@ app.put('/tasks/:id', (req, res) => {
     // #swagger.summary = 'Update a task by id'
     // #swagger.description = 'Update a task by id, if found'
     // #swagger.responses['404'] = { description: 'Task not found'}
+
+    if (!req.session.username) {
+        res.status(401).json({ message: 'Not logged in' })
+        return
+    }
 
     const taskId = req.params.id
     const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId)
@@ -142,6 +159,11 @@ app.delete('/tasks/:id', (req, res) => {
     // #swagger.summary = 'Delete a task by id'
     // #swagger.description = 'Delete a task by id, if found'
     // #swagger.responses['404'] = { description: 'Task not found'}
+
+    if (!req.session.username) {
+        res.status(401).json({ message: 'Not logged in' })
+        return
+    }
 
     const taskId = req.params.id
     const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId)
