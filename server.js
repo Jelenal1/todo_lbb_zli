@@ -51,7 +51,22 @@ app.post('/tasks', (req, res) => {
     // #swagger.tags = ['Tasks']
     // #swagger.summary = 'Create a new task'
     // #swagger.description = 'Create a new task if title is not empty.'
-    // #swagger.defaults = {createdDate: new Date().toLocaleDateString()}
+    /* #swagger.parameters['body'] = {
+           in: 'body',
+           description: 'New task',
+           required: true,
+           schema: {
+            title: 'String',
+            createdDate: 'String or null',
+            completedDate: 'String or null'
+        }
+} */
+    /* #swagger.parameters['titel'] = {
+            description: 'Titel of the task',
+            required: true,
+            type: 'String',
+            format: 'String'
+    } */
     const createDate = new Date()
     const task = {
         'title': req.body.title,
