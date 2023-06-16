@@ -229,6 +229,11 @@ app.get('/verify', (req, res) => {
     res.status(200).json({ email: req.session.email })
 })
 
+app.delete('/logout', (req, res) => {
+    req.session.email = ''
+    res.sendStatus(204)
+})
+
 app.use(
     '/',
     swaggerUi.serve,
