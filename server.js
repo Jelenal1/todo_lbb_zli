@@ -191,6 +191,20 @@ app.post('/login', (req, res) => {
     req.session.username = username
 })
 
+app.get('/verify', (req, res) => {
+    const username = req.session.username
+    if (!username) {
+        res.status(401).json({ message: 'Not logged in' })
+        return
+    }
+    const user = loginInfos.find(user => user.username === username)
+    if (!user) {
+        res.status(401).json({ message: 'Invalid token' })
+        return
+    }
+    res.status(200).json(req.session.username)
+})
+
 app.use(
     '/',
     swaggerUi.serve,
