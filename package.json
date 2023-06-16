@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "author": "Jelenal1 <113020871+Jelenal1@users.noreply.github.com>",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js",
     "lint": "yarn run eslint .",
