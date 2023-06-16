@@ -109,6 +109,10 @@ app.post('/tasks', (req, res) => {
         return
     }
 
+    if (!req.body.title) {
+        res.status(406).json({ message: 'Title is required' })
+    }
+
     const taskId = TODOSTESTDATA.filter(task => task.email === req.session.email).length + 1
     const createDate = new Date()
     const task = {
@@ -118,10 +122,7 @@ app.post('/tasks', (req, res) => {
         'completedDate': req.body.completedDate ? req.body.completedDate : null,
         'email': req.session.email
     }
-    if (!task || !task.title) {
-        res.status(404).json(task)
-        return
-    }
+
     TODOSTESTDATA.push(task)
     res.status(201).json(task)
 })
