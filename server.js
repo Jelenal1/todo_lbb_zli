@@ -67,7 +67,7 @@ const loginInfos = [{
 
 app.get('/tasks', (req, res) => {
     // #swagger.tags = ['Tasks']
-    // #swagger.summary = 'Get all user's tasks'
+    // #swagger.summary = 'Get all tasks'
     // #swagger.description = 'Get all tasks from the fictional database, if found'
 
     if (!req.session.email) {
@@ -85,7 +85,7 @@ app.get('/tasks', (req, res) => {
 
 app.post('/tasks', (req, res) => {
     // #swagger.tags = ['Tasks']
-    // #swagger.summary = 'Create a user's new task'
+    // #swagger.summary = 'Create a task'
     // #swagger.description = 'Create a new task if title is not empty.'
     /* #swagger.parameters['body'] = {
            in: 'body',
@@ -123,7 +123,7 @@ app.post('/tasks', (req, res) => {
 
 app.get('/tasks/:id', (req, res) => {
     // #swagger.tags = ['Tasks']
-    // #swagger.summary = 'Get a user's task by id'
+    // #swagger.summary = 'Get a task by id'
     // #swagger.description = 'Get a task by id, if found and logged in'
 
     if (!req.session.email) {
@@ -142,7 +142,7 @@ app.get('/tasks/:id', (req, res) => {
 
 app.put('/tasks/:id', (req, res) => {
     // #swagger.tags = ['Tasks']
-    // #swagger.summary = 'Update a user's task by id'
+    // #swagger.summary = 'Update a task by id'
     // #swagger.description = 'Update a task by id, if found and logged in'
     // #swagger.responses['404'] = { description: 'Task not found'}
 
@@ -167,7 +167,7 @@ app.put('/tasks/:id', (req, res) => {
 
 app.delete('/tasks/:id', (req, res) => {
     // #swagger.tags = ['Tasks']
-    // #swagger.summary = 'Delete a user's task by id'
+    // #swagger.summary = 'Delete a task by id'
     // #swagger.description = 'Delete a task by id, if found and logged in'
     // #swagger.responses['404'] = { description: 'Task not found'}
 
