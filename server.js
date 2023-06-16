@@ -183,6 +183,7 @@ app.delete('/tasks/:id', (req, res) => {
 app.post('/login', (req, res) => {
     const { email, password } = req.body
 
+    // generated with codium ai
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
     if (req.session.email) {
