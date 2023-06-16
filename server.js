@@ -1,4 +1,7 @@
 import express, { json } from 'express'
+const app = express()
+app.use(json())
+const port = 3000
 import swaggerUi from 'swagger-ui-express'
 import swaggeroutput from './swagger-output.json' assert { type: 'json' };
 import session from 'express-session';
@@ -11,9 +14,7 @@ app.use(session({
     }
 }))
 
-const app = express()
-app.use(json())
-const port = 3000
+
 
 //generated with codium ai
 const TODOSTESTDATA = [
