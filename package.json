@@ -7,7 +7,8 @@
   "scripts": {
     "start": "nodemon server.js",
     "lint": "yarn run eslint .",
-    "lintfix": "yarn run eslint ./server.js --fix"
+    "lintfix": "yarn run eslint ./server.js --fix",
+    "swagger": "node swagger.js"
   },
   "license": "MIT",
   "dependencies": {
