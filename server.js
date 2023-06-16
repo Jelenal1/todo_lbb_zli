@@ -81,6 +81,19 @@ app.post('/tasks', (req, res) => {
     res.status(201).json(task)
 })
 
+app.get('/tasks/:id', (req, res) => {
+    // #swagger.tags = ['Tasks']
+    // #swagger.summary = 'Get a task by id'
+    // #swagger.description = 'Get a task by id, if not found'
+    const taskId = req.params.id
+    const taskById = TODOSTESTDATA.find(task => task.id === taskId)
+    if (!taskById) {
+        res.status(404).json(taskById)
+        return
+    }
+    res.status(200).json(taskById)
+})
+
 
 
 app.use(
