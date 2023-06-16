@@ -4,12 +4,15 @@
   "main": "server.js",
   "author": "Jelenal1 <113020871+Jelenal1@users.noreply.github.com>",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "lint": "yarn run eslint .",
+    "lintfix": "yarn run eslint . --fix"
   },
   "license": "MIT",
   "dependencies": {
     "eslint": "^8.42.0",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "nodemon": "^2.0.22",
     "swagger-autogen": "^2.23.2",
     "swagger-ui-express": "^4.6.3"
