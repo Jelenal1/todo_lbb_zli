@@ -117,7 +117,9 @@ app.put('/tasks/:id', (req, res) => {
         ...TODOSTESTDATA[taskIndex],
         ...taskToUpdate
     }
+    res.status(200).json(TODOSTESTDATA[taskIndex])
 })
+
 
 app.use(
     '/',
