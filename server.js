@@ -46,6 +46,25 @@ app.get('/tasks', (req, res) => {
 	res.status(200).json(tasks)
 })
 
+app.post('/tasks', (req, res) => {
+	// #swagger.tags = ['Tasks']
+	// #swagger.summary = 'Create a new task'
+	// #swagger.description = 'Create a new task if title is not empty.'
+	// #swagger.defaults = {createdDate: new Date().toLocaleDateString()}
+	const createDate = new Date()
+	const task = {
+		'title': req.body.title,
+		'createdDate': req.body.createdDate ? req.body.createdDate : createDate.toLocaleDateString(),
+		'completedDate': req.body.completedDate ? req.body.completedDate : null
+	}
+	if (!task || !task.title) {
+		res.status(404).json(task)
+		return
+	}
+	TODOSTESTDATA.push(task)
+	res.status(201).json(task)
+})
+
 app.use(
 	'/',
 	swaggerUi.serve,
