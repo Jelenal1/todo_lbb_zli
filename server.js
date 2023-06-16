@@ -9,26 +9,31 @@ const port = 3000
 //generated with codium ai
 const TODOSTESTDATA = [
     {
+        'id': 1,
         'title': 'Buy groceries',
         'createdDate': '01.01.22',
         'completedDate': null
     },
     {
+        'id': 2,
         'title': 'Clean the house',
         'createdDate': '31.12.21',
         'completedDate': '01.01.22'
     },
     {
+        'id': 3,
         'title': 'Finish project',
         'createdDate': '02.01.22',
         'completedDate': null
     },
     {
+        'id': 4,
         'title': 'Call mom',
         'createdDate': '03.01.22',
         'completedDate': '03.01.22'
     },
     {
+        'id': 5,
         'title': 'Go for a run',
         'createdDate': '04.01.22',
         'completedDate': null
@@ -69,6 +74,7 @@ app.post('/tasks', (req, res) => {
     } */
     const createDate = new Date()
     const task = {
+        'id': TODOSTESTDATA.length + 1,
         'title': req.body.title,
         'createdDate': req.body.createdDate ? req.body.createdDate : createDate.toLocaleDateString(),
         'completedDate': req.body.completedDate ? req.body.completedDate : null
@@ -94,7 +100,24 @@ app.get('/tasks/:id', (req, res) => {
     res.status(200).json(taskById)
 })
 
+app.put('/tasks/:id', (req, res) => {
+    // #swagger.tags = ['Tasks']
+    // #swagger.summary = 'Update a task by id'
+    // #swagger.description = 'Update a task by id, if found'
+    // #swagger.responses['404'] = { description: 'Task not found'}
 
+    const taskId = req.params.id
+    const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId)
+    const taskToUpdate = req.body
+    if (taskIndex === -1) {
+        res.status(404).json({ message: 'Task not found' })
+        return
+    }
+    TODOSTESTDATA[taskIndex] = {
+        ...TODOSTESTDATA[taskIndex],
+        ...taskToUpdate
+    }
+})
 
 app.use(
     '/',
