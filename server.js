@@ -189,6 +189,7 @@ app.post('/login', (req, res) => {
     // #swagger.tags = ['Authentication']
     // #swagger.summary = 'Login a user by email and password'
     // #swagger.description = 'Login a user by email and password and get an session cookie'
+    // #swagger.parameters['body'] = { in: 'body', description: 'Login info', required: true, schema: { email: 'String', password: 'String' } }
 
     const { email, password } = req.body
 
