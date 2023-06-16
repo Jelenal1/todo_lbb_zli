@@ -183,12 +183,13 @@ app.delete('/tasks/:id', (req, res) => {
 
     const taskId = req.params.id
     const taskIndex = TODOSTESTDATA.findIndex(task => task.id === parseInt(taskId) && task.email === req.session.email)
+    const taskToDelete = TODOSTESTDATA[taskIndex]
     if (taskIndex === -1) {
         res.status(404).json({ message: 'Task not found' })
         return
     }
     TODOSTESTDATA.splice(taskIndex, 1)
-    res.status(204).json(TODOSTESTDATA[taskIndex])
+    res.status(204).json(taskToDelete)
 })
 
 app.post('/login', (req, res) => {
