@@ -61,6 +61,12 @@ app.get('/tasks', (req, res) => {
     // #swagger.tags = ['Tasks']
     // #swagger.summary = 'Get all tasks'
     // #swagger.description = 'Get all tasks from the fictional database, if found'
+
+    if (!req.session.username) {
+        res.status(404).json({ message: 'Not logged in' })
+        return
+    }
+
     const tasks = TODOSTESTDATA
     if (!tasks) {
         res.status(404).json(tasks)
@@ -91,7 +97,7 @@ app.post('/tasks', (req, res) => {
     } */
 
     if (!req.session.username) {
-        res.status(401).json({ message: 'Not logged in' })
+        res.status(404).json({ message: 'Not logged in' })
         return
     }
 
@@ -116,7 +122,7 @@ app.get('/tasks/:id', (req, res) => {
     // #swagger.description = 'Get a task by id, if found'
 
     if (!req.session.username) {
-        res.status(401).json({ message: 'Not logged in' })
+        res.status(404).json({ message: 'Not logged in' })
         return
     }
 
@@ -136,7 +142,7 @@ app.put('/tasks/:id', (req, res) => {
     // #swagger.responses['404'] = { description: 'Task not found'}
 
     if (!req.session.username) {
-        res.status(401).json({ message: 'Not logged in' })
+        res.status(404).json({ message: 'Not logged in' })
         return
     }
 
@@ -161,7 +167,7 @@ app.delete('/tasks/:id', (req, res) => {
     // #swagger.responses['404'] = { description: 'Task not found'}
 
     if (!req.session.username) {
-        res.status(401).json({ message: 'Not logged in' })
+        res.status(404).json({ message: 'Not logged in' })
         return
     }
 
