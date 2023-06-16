@@ -38,7 +38,7 @@ const TODOSTESTDATA = [
 app.get('/tasks', (req, res) => {
     // #swagger.tags = ['Tasks']
     // #swagger.summary = 'Get all tasks'
-    // #swagger.description = 'Get all tasks from the fictional database, if there are no tasks found you'll get an empty array'
+    // #swagger.description = 'Get all tasks from the fictional database, if found'
     const tasks = TODOSTESTDATA
     if (!tasks) {
         res.status(404).json(tasks)
@@ -84,7 +84,7 @@ app.post('/tasks', (req, res) => {
 app.get('/tasks/:id', (req, res) => {
     // #swagger.tags = ['Tasks']
     // #swagger.summary = 'Get a task by id'
-    // #swagger.description = 'Get a task by id, if not found'
+    // #swagger.description = 'Get a task by id, if found'
     const taskId = req.params.id
     const taskById = TODOSTESTDATA.find(task => task.id === taskId)
     if (!taskById) {
