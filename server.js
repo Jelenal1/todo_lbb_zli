@@ -218,7 +218,7 @@ app.get('/verify', (req, res) => {
         res.status(401).json({ message: 'Invalid token' })
         return
     }
-    res.status(200).json(req.session.email)
+    res.status(200).json({ email: req.session.email })
 })
 
 app.use(
