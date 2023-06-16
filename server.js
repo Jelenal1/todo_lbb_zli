@@ -1,6 +1,15 @@
 import express, { json } from 'express'
 import swaggerUi from 'swagger-ui-express'
 import swaggeroutput from './swagger-output.json' assert { type: 'json' };
+import session from 'express-session';
+
+app.use(session({
+    secret: 'averysecretsecret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+    }
+}))
 
 const app = express()
 app.use(json())
@@ -39,6 +48,14 @@ const TODOSTESTDATA = [
         'completedDate': null
     }
 ]
+
+const loginInfos = [{
+    username: 'admin',
+    password: 'admin'
+}, {
+    username: 'moo',
+    password: 'password'
+}]
 
 app.get('/tasks', (req, res) => {
     // #swagger.tags = ['Tasks']
@@ -133,6 +150,23 @@ app.delete('/tasks/:id', (req, res) => {
         return
     }
     TODOSTESTDATA.splice(taskIndex, 1)
+})
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body
+
+    if (req.session.username) {
+        res.status(401).json({ message: 'Already logged in' })
+        return
+    }
+    const user = loginInfos.find(user => user.username === username && user.password === password)
+    if (!user) {
+        res.status(401).json({ message: 'Invalid username or password' })
+        req.session.username = ''
+        return
+    }
+    res.status(200).json(user.username)
+    req.session.username = username
 })
 
 app.use(
