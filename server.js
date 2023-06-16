@@ -50,11 +50,11 @@ const TODOSTESTDATA = [
 ]
 
 const loginInfos = [{
-    username: 'admin',
-    password: 'admin'
+    username: 'admin@zli.ch',
+    password: 'm295'
 }, {
-    username: 'moo',
-    password: 'password'
+    username: 'moo@gmail.com',
+    password: 'm295'
 }]
 
 app.get('/tasks', (req, res) => {
