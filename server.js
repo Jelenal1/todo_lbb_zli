@@ -151,6 +151,10 @@ app.put('/tasks/:id', (req, res) => {
         return
     }
 
+    if (!req.body.title) {
+        res.status(406).json({ message: 'Title is required' })
+        return
+    }
 
     const taskId = req.params.id
     const taskIndex = TODOSTESTDATA.findIndex(task => task.id === taskId && task.email === req.session.email)
