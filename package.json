@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "author": "Jelenal1 <113020871+Jelenal1@users.noreply.github.com>",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "license": "MIT",
   "dependencies": {
     "eslint": "^8.42.0",
