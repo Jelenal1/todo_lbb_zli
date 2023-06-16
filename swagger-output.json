@@ -17,14 +17,17 @@
           "Tasks"
         ],
         "summary": "Get all tasks",
-        "description": "Get all tasks from the fictional database, if there are no tasks found you",
+        "description": "Get all tasks from the fictional database, if found",
         "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
           },
-          "404": {
-            "description": "Not Found"
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
@@ -32,23 +35,28 @@
         "tags": [
           "Tasks"
         ],
-        "summary": "Create a new task",
+        "summary": "Create a task",
         "description": "Create a new task if title is not empty.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "description": "New task",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "String"
                 },
                 "createdDate": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "String or null"
                 },
                 "completedDate": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "String or null"
                 }
               }
             }
@@ -58,8 +66,171 @@
           "201": {
             "description": "Created"
           },
+          "403": {
+            "description": "Forbidden"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        }
+      }
+    },
+    "/tasks/{id}": {
+      "get": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Get a task by id",
+        "description": "Get a task by id, if found and logged in",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
           "404": {
             "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Update a task by id",
+        "description": "Update a task by id, if found and logged in",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "406": {
+            "description": "Not Acceptable"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tasks"
+        ],
+        "summary": "Delete a task by id",
+        "description": "Delete a task by id, if found and logged in",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Login a user by email and password",
+        "description": "Login a user by email and password and get an session cookie",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Login info",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "example": "String"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "String"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/verify": {
+      "get": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Verify a user",
+        "description": "Verify a user by their session cookie",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "delete": {
+        "tags": [
+          "Authentication"
+        ],
+        "summary": "Logout a user",
+        "description": "Logout a user and delete the session cookie",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": "No Content"
           }
         }
       }
