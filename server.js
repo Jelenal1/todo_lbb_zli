@@ -188,6 +188,7 @@ app.delete('/tasks/:id', (req, res) => {
         return
     }
     TODOSTESTDATA.splice(taskIndex, 1)
+    res.status(204).json(TODOSTESTDATA[taskIndex])
 })
 
 app.post('/login', (req, res) => {
